@@ -1,0 +1,29 @@
+<div id="postreview">
+    <h2><span>Topic review (newest first)</span></h2>
+    
+    {% for topic_review_row in loops.topic_review_row %}
+        
+        <div class="blockpost">
+            <div class="box rowodd">
+                <div class="inbox">
+                    <div class="postbody">
+                        <div class="postleft">
+                            <dl>
+                                <dt><strong>{{ topic_review_row.POST_AUTHOR }}</strong></dt>
+                                <dd><span>{{ topic_review_row.POST_DATE }}</span></dd>
+                            </dl>
+                        </div>
+                        <div class="postright">
+                            <div class="postmsg">
+                                <p>{{ topic_review_row.MESSAGE }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearer"></div>
+                </div>
+            </div>
+        </div>
+    
+    {% endfor %}
+
+</div>

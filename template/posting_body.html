@@ -1,0 +1,159 @@
+{% INCLUDE 'osmforum_header.html' %}
+
+<div class="linkst">
+    <div class="inbox crumbsplus">
+        <ul class="crumbs">
+            <li><a href="index.php">Index</a></li>
+
+            {% for navlinks in loops.navlinks %}
+                <li><span>»&#160;</span><a href="{{ navlinks.U_VIEW_FORUM }}">{{ navlinks.FORUM_NAME }}</a></li>
+            {% endfor %}
+
+            {% if TOPIC_TITLE %}
+                <li><span>»&#160;</span><a href="{{ U_VIEW_TOPIC }}">{{ TOPIC_TITLE }}</a></li>
+                <li><span>»&#160;</span>Post a Reply</li>
+            {% else %}
+                <li><span>»&#160;</span>Post new Topic</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+{% if  ERROR %}
+    <div id="posterror" class="block">
+            <h2><span>Post errors</span></h2>
+            <div class="box">
+                    <div class="inbox error-info">
+                            <p>The following errors need to be corrected before the message can be posted:</p>
+                            <ul class="error-list">
+                                    <li><strong>{{ ERROR }}</strong></li>
+                            </ul>
+                    </div>
+            </div>
+    </div>            
+{% endif %}  
+
+<div id="postform" class="blockform">
+    <div class="box">
+        
+        <form id="postform" method="post" action="{{ S_POST_ACTION }}"{{ S_FORM_ENCTYPE }}>
+            <input type="hidden" name="show_panel" value="options-panel" />
+            {{ S_FORM_TOKEN }}
+            {{ S_HIDDEN_ADDRESS_FIELD }}
+            {{ S_HIDDEN_FIELDS }}
+        
+            <div class="inform">
+                <fieldset>
+                    {% if TOPIC_TITLE %}
+                        <legend>Post a reply</legend>
+                    {% else %}
+                        <legend>Post new topic</legend>
+                    {% endif %}
+                    <div class="infldset txtarea">
+                        
+                        {% if not TOPIC_TITLE %}
+                            <label class="required">
+                                <strong>Subject <span>(Required)</span></strong><br />
+                                <input class="longinput" type="text" name="subject" value="" size="80" maxlength="70" tabindex="1" /><br />
+                            </label>
+                        {% else %}
+                            <input type="hidden" name="subject" value="{{ TOPIC_TITLE }}">
+                        {% endif %}
+						
+                        <label class="required"><strong>Message <span>(Required)</span></strong><br />
+                            
+                            
+                            <textarea name="message" rows="20" cols="95" tabindex="1">{{ MESSAGE }}{{ DRAFT_MESSAGE }}{{ SIGNATURE }}</textarea><br /></label>
+                        
+                        
+                        <ul class="bblinks">
+                            <li><span><a href="help.php#bbcode" onclick="window.open(this.href);
+                                                                return false;">BBCode:</a> on</span></li>
+                            <li><span><a href="help.php#url" onclick="window.open(this.href);
+                                                                return false;">[url] tag:</a> on</span></li>
+                            <li><span><a href="help.php#img" onclick="window.open(this.href);
+                                                                return false;">[img] tag:</a> on</span></li>
+                            <li><span><a href="help.php#smilies" onclick="window.open(this.href);
+                                                                return false;">Smilies:</a> on</span></li>
+                        </ul>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="inform">
+                <fieldset>
+                    <legend>Options</legend>
+                    <div class="infldset">
+                        <div class="rbox">
+                            {% if S_BBCODE_ALLOWED %}
+                                    <div><label for="disable_bbcode"><input type="checkbox" name="disable_bbcode" id="disable_bbcode"{{ S_BBCODE_CHECKED }} /> {{ lang('DISABLE_BBCODE') }}</label></div>
+                            {% endif %}
+                            {% if S_SMILIES_ALLOWED %}
+                                    <div><label for="disable_smilies"><input type="checkbox" name="disable_smilies" id="disable_smilies"{{ S_SMILIES_CHECKED }} /> {{ lang('DISABLE_SMILIES') }}</label></div>
+                            {% endif %}
+                            {% if S_LINKS_ALLOWED %}
+                                    <div><label for="disable_magic_url"><input type="checkbox" name="disable_magic_url" id="disable_magic_url"{{ S_MAGIC_URL_CHECKED }} /> {{ lang('DISABLE_MAGIC_URL') }}</label></div>
+                            {% endif %}
+                            {% if S_SIG_ALLOWED %}
+                                    <div><label for="attach_sig"><input type="checkbox" name="attach_sig" id="attach_sig"{{ S_SIGNATURE_CHECKED }} /> {{ lang('ATTACH_SIG') }}</label></div>
+                            {% endif %}
+                            {% if S_NOTIFY_ALLOWED %}
+                                    <div><label for="notify"><input type="checkbox" name="notify" id="notify"{{ S_NOTIFY_CHECKED }} /> {{ lang('NOTIFY_REPLY') }}</label></div>
+                            {% endif %}
+                            {% if S_LOCK_TOPIC_ALLOWED %}
+                                    <div><label for="lock_topic"><input type="checkbox" name="lock_topic" id="lock_topic"{{ S_LOCK_TOPIC_CHECKED }} /> {{ lang('LOCK_TOPIC') }}</label></div>
+                            {% endif %}
+                            {% if S_LOCK_POST_ALLOWED %}
+                                    <div><label for="lock_post"><input type="checkbox" name="lock_post" id="lock_post"{{ S_LOCK_POST_CHECKED }} /> {{ lang('LOCK_POST') }} [{{ lang('LOCK_POST_EXPLAIN') }}]</label></div>
+                            {% endif %}
+
+                            {% if S_TYPE_TOGGLE or S_TOPIC_TYPE_ANNOUNCE or S_TOPIC_TYPE_STICKY %}
+                            <hr class="dashed" />
+                            {% endif %}
+
+                            {% if S_TYPE_TOGGLE %}
+                            <dl>
+                                    <dt><label for="topic_type-0">{% if S_EDIT_POST %}{{ lang('CHANGE_TOPIC_TO') }}{% else %}{{ lang('POST_TOPIC_AS') }}{% endif %}{{ lang('COLON') }}</label></dt>
+                                    <dd>{% for topic_type in loops.topic_type %}<label for="topic_type-{{ topic_type.VALUE }}"><input type="radio" name="topic_type" id="topic_type-{{ topic_type.VALUE }}" value="{{ topic_type.VALUE }}"{{ topic_type.S_CHECKED }} />{{ topic_type.L_TOPIC_TYPE }}</label> {% endfor %}</dd>
+                            </dl>
+                            {% endif %}
+
+                            {% if S_TOPIC_TYPE_ANNOUNCE or S_TOPIC_TYPE_STICKY %}
+                            <dl>
+                                    <dt><label for="topic_time_limit">{{ lang('STICK_TOPIC_FOR') }}{{ lang('COLON') }}</label></dt>
+                                    <dd><label for="topic_time_limit"><input type="number" min="0" max="999" name="topic_time_limit" id="topic_time_limit" value="{{ TOPIC_TIME_LIMIT }}" class="inputbox autowidth" /> {{ lang('DAYS') }}</label></dd>
+                                    <dd>{{ lang('STICK_TOPIC_FOR_EXPLAIN') }}</dd>
+                            </dl>
+                            {% endif %}
+
+                            {% if S_SOFTDELETE_ALLOWED or S_DELETE_ALLOWED %}
+                                <hr/>
+                                    <label for="delete"><strong>{{ lang('DELETE_POST') }}{{ lang('COLON') }}</strong></label>
+                                    <label for="delete"><input type="checkbox" name="delete" id="delete" {{ S_SOFTDELETE_CHECKED }} /> {{ lang('DELETE_POST_WARN') }}</label>
+                                    {% if S_DELETE_ALLOWED and S_SOFTDELETE_ALLOWED %}
+                                            <label for="delete_permanent"><input type="checkbox" name="delete_permanent" id="delete_permanent" /> {{ lang('DELETE_POST_PERMANENTLY') }}</label>
+                                    {% endif %}
+                            {% endif %}
+
+                            {% if S_EDIT_REASON %}
+                                <hr/>
+                                <strong>{{ lang('EDIT_REASON') }}{{ lang('COLON') }}</strong>
+                                <input type="text" name="edit_reason" id="edit_reason" value="{{ EDIT_REASON }}" style="width: 50%;margin-left:0;float:none;" />
+                            {% endif %}
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <p class="buttons">
+                <input type="submit" name="post" value="{{ lang('SUBMIT') }}" tabindex="4" accesskey="s" /> 
+                <input type="submit" name="preview" value="{{ lang('PREVIEW') }}" tabindex="5" accesskey="p" /> 
+                <a href="javascript:history.go(-1)">Go back</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+{% if S_DISPLAY_REVIEW %}
+    {% INCLUDE 'posting_topic_review.html' %}
+{% endif %}
+
+{% INCLUDE 'osmforum_footer.html' %}

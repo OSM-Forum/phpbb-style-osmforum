@@ -1,0 +1,24 @@
+{% INCLUDE 'osmforum_header.html' %}
+    
+{% INCLUDE 'forumlist_body.html' %}
+
+<div id="brdstats" class="block">
+	<h2><span>Board information</span></h2>
+	<div class="box">
+		<div class="inbox">
+			<dl class="conr">
+				<dt><strong>Board statistics</strong></dt>
+				<dd>{{ TOTAL_USERS }}</dd>
+				<dd>{{ TOTAL_TOPICS }}</dd>
+				<dd>{{ TOTAL_POSTS }}</dd>
+			</dl>
+			<dl class="conl">
+				<dt><strong>User information</strong></dt>
+				<dd><span>{{ NEWEST_USER }}</span></dd>
+			</dl>
+			<div class="clearer"></div>
+		</div>
+	</div>
+</div>
+
+{% INCLUDE 'osmforum_footer.html' %}

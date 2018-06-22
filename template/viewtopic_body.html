@@ -1,0 +1,102 @@
+
+{% INCLUDE 'osmforum_header.html' %}
+
+<div class="linkst">
+	<div class="inbox crumbsplus">
+		<ul class="crumbs">
+                    <li><a href="index.php">Index</a></li>
+
+                    {% for navlinks in loops.navlinks %}
+                        <li><span>»&#160;</span><a href="{{ navlinks.U_VIEW_FORUM }}">{{ navlinks.FORUM_NAME }}</a></li>
+                    {% endfor %}
+
+                    <li><span>»&#160;</span><a href="{{ U_VIEW_TOPIC }}">{{ TOPIC_TITLE }}</a></li>
+		</ul>
+		<div class="pagepost">
+                    {% include 'pagination.html' %}
+
+                    {% if S_REGISTERED_USER and U_POST_REPLY_TOPIC %}
+                        <p class="postlink conr"><a href="{{ U_POST_REPLY_TOPIC }}">Post reply</a></p>
+                    {% endif %}
+		</div>
+		<div class="clearer"></div>
+	</div>
+</div>
+
+{% for postrow in loops.postrow %}
+    
+    {% include 'postblock.html' %}
+	
+{% endfor %}
+
+<div class="postlinksb">
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="pagelink conl"><span class="pages-label">Pages: </span><strong class="item1">1</strong></p>
+			
+                        {% if S_REGISTERED_USER and U_POST_REPLY_TOPIC %}
+                            <p class="postlink conr"><a href="{{ U_POST_REPLY_TOPIC }}">Post reply</a></p>
+                        {% endif %}
+		</div>
+		<ul class="crumbs">
+                    <li><a href="index.php">Index</a></li>
+
+                    {% for navlinks in loops.navlinks %}
+                        <li><span>»&#160;</span><a href="{{ navlinks.U_VIEW_FORUM }}">{{ navlinks.FORUM_NAME }}</a></li>
+                    {% endfor %}
+
+                    <li><span>»&#160;</span><a href="{{ U_VIEW_TOPIC }}">{{ TOPIC_TITLE }}</a></li>
+		</ul>
+                
+                {% if U_WATCH_TOPIC %}
+                    <p class="subscribelink clearb">
+                        <a href="{{ U_WATCH_TOPIC }}">{{ S_WATCH_TOPIC_TITLE }}</a>
+                    </p>
+                {% endif %}
+                
+		<div class="clearer"></div>
+	</div>
+</div>
+  
+{% if S_QUICK_REPLY %}                
+    <div id="quickpost" class="blockform">
+        <h2><span>Quick reply</span></h2>
+        <div class="box">
+            <form method="post" action="{{ U_QR_ACTION }}" id="qr_postform">
+            {{ S_FORM_TOKEN }}
+            {{ S_HIDDEN_ADDRESS_FIELD }}
+            {{ S_HIDDEN_FIELDS }}
+            {{ QR_HIDDEN_FIELDS }}
+            <input type="hidden" name="subject" value="{{ TOPIC_TITLE }}">
+                <div class="inform">
+                    <fieldset>
+                        <legend>Write your message and submit</legend>
+                        <div class="infldset txtarea">
+                            <label><textarea name="message" rows="7" cols="75" tabindex="1"></textarea></label>
+                            <ul class="bblinks">
+                                <li><span><a href="help.php#bbcode" onclick="window.open(this.href); return false;">BBCode:</a> on</span></li>
+                                <li><span><a href="help.php#url" onclick="window.open(this.href); return false;">[url] tag:</a> on</span></li>
+                                <li><span><a href="help.php#img" onclick="window.open(this.href); return false;">[img] tag:</a> on</span></li>
+                                <li><span><a href="help.php#smilies" onclick="window.open(this.href); return false;">Smilies:</a> on</span></li>
+                            </ul>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class="buttons"><input type="submit" name="post" tabindex="2" value="Submit" accesskey="s" /> 
+                    <input type="submit" name="preview" value="Preview" tabindex="3" accesskey="p" /></p>
+            </form>
+        </div>
+    </div>
+{% endif %}
+
+{% if loops.quickmod|length %}
+
+    <div id="quickmod">
+        {% for quickmod in loops.quickmod %}
+            <li><a href="{{ quickmod.LINK }}">{{ quickmod.TITLE }}</a></li>
+        {% endfor %}
+    </div>
+
+{% endif %}
+
+{% INCLUDE 'osmforum_footer.html' %}

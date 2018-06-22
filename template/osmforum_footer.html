@@ -1,0 +1,54 @@
+
+</div>
+{% EVENT overall_footer_content_after %}
+
+{% EVENT overall_footer_page_body_after %}
+
+<div id="brdfooter" class="block">
+	<h2><span>Board footer</span></h2>
+	<div class="box">
+		<div id="brdfooternav" class="inbox">
+			<div class="conl">
+                            {% if loops.jumpbox_forums %}
+				<form id="qjump" method="get" action="viewforum.php">
+					<div><label><span>Jump to<br /></span>
+					<select name="f" onchange="window.location=('viewforum.php?f='+this.options[this.selectedIndex].value)">
+                                            
+                                            
+                                            {% for forum in loops.jumpbox_forums %}
+                                                
+						{% if forum.S_IS_CAT %}
+                                                    </optgroup>
+                                                    <optgroup label="{{ forum.FORUM_NAME }}">
+                                                {% else %}
+                                                    <option value="{{ forum.FORUM_ID }}"{% if forum.SELECTED %} SELECTED{% endif %}>
+                                                        {{ forum.FORUM_NAME }}
+                                                    </option>
+                                                {% endif %}
+                                                
+                                            {% endfor %}
+                                            
+					</select></label>
+					<input type="submit" value=" Go " accesskey="g" />
+					</div>
+				</form>
+                            {% endif %}
+			</div>
+			<div class="conr">
+                                <p id="poweredby">
+                                    {% EVENT overall_footer_copyright_prepend %}
+                                    Engine powered by <a href="https://phpbb.com/">phpBB</a><br> 
+                                    Design powered by <a href="https://fluxbb.org/">fluxBB</a></p>
+                                    {% EVENT overall_footer_copyright_append %}
+			</div>
+			<div class="clearer"></div>
+		</div>
+	</div>
+</div>
+{% EVENT overall_footer_after %}
+</div>
+<div class="end-box"></div>
+</div>
+{% EVENT overall_footer_body_after %}
+</body>
+</html>

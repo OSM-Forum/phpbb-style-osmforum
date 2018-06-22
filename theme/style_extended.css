@@ -1,0 +1,91 @@
+
+/* ---overwriting the original style--- */
+
+/* full width */
+.pun {
+    
+/*    max-width: none;
+    margin: 0;*/
+}
+
+
+/* fixing the quoting selection */
+.pun blockquote {
+	border-style: solid;
+	border-width: 1px 1px 1px 3px;
+	margin: 0.75em 1em;
+	padding: 0 0.75em;
+        
+        
+	background: #f8f9f0;
+	border-color: #7aadbd;
+	color: #566579;
+}
+
+.pun blockquote cite {
+	display: block;
+	padding: 0.75em 0 0 0;
+	font-weight: bold;
+	line-height: 1.462em;
+        
+        color: #357082;
+}
+
+.pun blockquote {
+	overflow: hidden;
+}
+
+
+/* ----New added---- */
+
+/* Fixing the bullet image position */
+#searchform .bull {
+    position: relative;
+    top: 2px;
+}
+
+.pun .checklist {
+    height: 250px;
+}
+
+/* fixing the name position */
+#search-results.posts h2 {
+    padding-left: 10px;
+}
+
+/* fixing the date position */
+#search-results.posts .date {
+    float: right;
+    position: relative;
+    top: -18px;
+    height: 0px;
+}
+
+/* highlighting of seaarchresults */
+.posthilit {
+    background: yellow;
+}
+
+#quickmod {
+    
+    border-top: 2px solid #566579;
+    margin-top: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+#quickmod li {
+    
+    display: inline;
+    font-size: 9pt;
+}
+
+#quickmod li:after {
+    
+    content: ' |';
+}
+
+#quickmod li:last-child:after {
+    
+    content: '';
+}

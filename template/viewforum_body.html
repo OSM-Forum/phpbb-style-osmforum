@@ -1,0 +1,137 @@
+{% INCLUDE 'osmforum_header.html' %}
+
+<div class="linkst">
+    <div class="inbox crumbsplus">
+        <ul class="crumbs">
+            <li><a href="index.php">Index</a></li>
+
+            {% for navlinks in loops.navlinks %}
+                <li><span>»&#160;</span><a href="{{ navlinks.U_VIEW_FORUM }}">{{ navlinks.FORUM_NAME }}</a></li>
+                {% endfor %}
+        </ul>
+        
+        {% if S_HAS_SUBFORUM %}
+            {% include 'forumlist_body.html' %}
+        {% endif %}
+        
+        <div class="pagepost">
+            
+            {% include 'pagination.html' %}
+            
+            {% if S_REGISTERED_USER and U_POST_NEW_TOPIC %}
+                <p class="postlink conr"><a href="{{ U_POST_NEW_TOPIC }}">Post new topic</a></p>
+            {% endif %}
+        </div>
+        <div class="clearer"></div>
+    </div>
+</div>
+
+<div id="vf" class="blocktable">
+    <div class="box">
+        <div class="inbox">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="tcl" scope="col">Topic</th>
+                        <th class="tc2" scope="col">Replies</th>
+                        <th class="tc3" scope="col">Views</th>
+                        <th class="tcr" scope="col">Last post</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for topicrow in loops.topicrow %}
+
+                        <tr class="roweven{% if topicrow.S_UNREAD_TOPIC %} inew{% endif %}">
+                            <td class="tcl">
+                                <div class="icon{% if topicrow.S_UNREAD_TOPIC %} icon-new{% endif %}"><div class="nosize">4</div></div>
+                                <div class="tclcon">
+                                    <div>
+                                        {% if topicrow.S_POST_STICKY %}
+                                            <span class="stickytext">Sticky:</span> 
+                                        {% endif %}
+                                        {% if topicrow.S_IS_LOCKED %}
+                                            <span class="closedtext">Closed:</span>
+                                        {% endif %}
+                                        {% if topicrow.S_UNREAD_TOPIC %}
+                                            <strong>
+                                                <a href="{{ topicrow.U_VIEW_TOPIC }}">{{ topicrow.TOPIC_TITLE }}</a> 
+                                                <span class="byuser">by {{ topicrow.TOPIC_AUTHOR }}</span>
+                                            </strong> 
+                                            <span class="newtext">
+                                                [ <a href="{{ topicrow.U_NEWEST_POST }}" title="Go to the first new post in this topic.">New posts</a> ]
+                                            </span>
+                                        {% else %}
+                                            <a href="{{ topicrow.U_VIEW_TOPIC }}">{{ topicrow.TOPIC_TITLE }}</a> 
+                                            <span class="byuser">by {{ topicrow.TOPIC_AUTHOR }}</span>
+                                        {% endif %}
+
+                                        {% if topicrow.pagination %}
+                                            <span class="pagestext">[ 
+                                                
+                                                {% for page in topicrow.pagination %}
+                                                    
+                                                    {% if page.S_NUM_ROWS < 10 or page.PAGE_NUMBER < 4 or page.PAGE_NUMBER == page.S_NUM_ROWS - 1 %}
+                                                        <a href="{{ page.PAGE_URL }}">{{ page.PAGE_NUMBER }}</a>
+                                                    {% elseif not spacerset %}
+                                                        {% set spacerset = true %}
+                                                        <span class="spacer">…</span>
+                                                    {% endif %}
+                                                {% endfor %} 
+                                                
+                                            ]</span>
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="tc2">{{ topicrow.REPLIES }}</td>
+                            <td class="tc3">{{ topicrow.VIEWS }}</td>
+                            <td class="tcr">
+                                <a href="{{ topicrow.U_NEWEST_POST }}">{{ topicrow.LAST_POST_TIME }}</a> 
+                                <span class="byuser">by {{ topicrow.LAST_POST_AUTHOR }}</span></td>
+                        </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                    
+    <div class="linksb forumview">
+        <div class="inbox crumbsplus">
+            <div class="pagepost">
+                
+                {% include 'pagination.html' %}
+                
+                {% if S_REGISTERED_USER and U_POST_NEW_TOPIC %}
+                    <p class="postlink conr"><a href="{{ U_POST_NEW_TOPIC }}">Post new topic</a></p>
+                {% endif %}
+            </div>
+            <ul class="crumbs">
+                <li><a href="index.php">Index</a></li>
+
+                {% for navlinks in loops.navlinks %}
+                    <li><span>»&#160;</span><a href="{{ navlinks.U_VIEW_FORUM }}">{{ navlinks.FORUM_NAME }}</a></li>
+                {% endfor %}
+            </ul>
+            <p class="subscribelink clearb">
+                
+                {% if U_WATCH_FORUM_LINK %}
+                    <a href="{{ U_WATCH_FORUM_LINK }}">{{ S_WATCH_FORUM_TITLE }}</a>
+                {% endif %}
+                
+                {% if U_WATCH_FORUM_LINK and U_MARK_TOPICS %}
+                    - 
+                {% endif %}
+                
+                {% if U_MARK_TOPICS %}
+                    <a href="{{ U_MARK_TOPICS }}">Mark this forum as read</a>
+                {% endif %}
+            </p>
+            <div class="clearer"></div>
+        </div>
+    </div>
+            
+{% INCLUDE 'osmforum_footer.html' %}

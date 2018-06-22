@@ -1,0 +1,36 @@
+<p class="pagelink conl">
+    
+    {% if loops.pagination|length %}
+       <span class="pages-label">Pages: </span>
+              
+       {% for page in loops.pagination %}
+    
+           {% if page.PAGE_NUMBER %}
+           
+                {% if page.S_IS_CURRENT %}
+               
+                    <strong{% if page.PAGE_NUMBER == 1 %} class="item1"{% endif %}>{{ page.PAGE_NUMBER }}</strong>
+                    
+                {% elseif page.S_NUM_ROWS < 10 or page.PAGE_NUMBER < 4 or page.PAGE_NUMBER == page.S_NUM_ROWS - 1 %}
+                    
+                    <a href="{{ page.PAGE_URL }}"{% if page.PAGE_NUMBER == 1 %} class="item1"{% endif %}>{{ page.PAGE_NUMBER }}</a>
+
+                {% elseif not spacerset %}
+                    
+                    <span class="spacer">…</span>
+                    {% set spacerset = true %}
+                    
+                {% endif %}
+            
+            {% else %}
+                {# todo: phpbb seems not to provide next page link, so we might have to build it #}
+                {# <a rel="next" href="{{ page.U_NEXT }}">Next</a> #}
+                
+            {% endif %}
+           
+        {% endfor %}
+       
+    {% else %}
+        <span class="pages-label">Pages: </span><strong class="item1">1</strong>
+    {% endif %}
+</p>

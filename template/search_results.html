@@ -1,0 +1,51 @@
+
+{% include 'osmforum_header.html' %}
+
+{% if TOTAL_MATCHES < 1 %}
+
+    {% include 'search_results_none.html' %}
+
+{% else %}
+
+    <div class="linkst">
+        <div class="inbox crumbsplus">
+            <ul class="crumbs">
+                <li><a href="index.php">Index</a></li>
+                <li><span>»&#160;</span><a href="{{ U_SEARCH }}">Search</a></li>
+                <li><span>»&#160;</span><a href="{{ U_SEARCH_WORDS }}">Topics with posts containing '{{ SEARCH_WORDS }}'</a></li>
+            </ul>
+
+            <div class="pagepost">
+                <p class="pagelink conl">
+                    {% include 'pagination.html' %}
+                </p>
+            </div>
+            <div class="clearer"></div>
+        </div>
+    </div>
+
+    {% if S_SHOW_TOPICS %}
+        {% include 'search_results_topics.html' %}                    
+    {% else %}
+        {% include 'search_results_posts.html' %}                    
+    {% endif %}
+
+    <div class="linksb forumview">
+        <div class="inbox crumbsplus">
+            <div class="pagepost">
+                <p class="pagelink conl">
+                    {% include 'pagination.html' %}
+                </p>
+            </div>
+            <ul class="crumbs">
+                <li><a href="index.php">Index</a></li>
+                <li><span>»&#160;</span><a href="{{ U_SEARCH }}">Search</a></li>
+                <li><span>»&#160;</span><a href="{{ U_SEARCH_WORDS }}">Topics with posts containing '{{ SEARCH_WORDS }}'</a></li>
+            </ul>
+            <div class="clearer"></div>
+        </div>
+    </div>
+
+{% endif %}
+
+{% include 'osmforum_footer.html' %}

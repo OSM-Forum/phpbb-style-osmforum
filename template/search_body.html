@@ -1,0 +1,97 @@
+{% include 'osmforum_header.html' %}
+
+<div id="searchform" class="blockform">
+    <h2><span>Search</span></h2>
+    <div class="box">
+        <form method="get" action="{{ S_SEARCH_ACTION }}" data-focus="keywords">
+            <div class="inform">
+                <fieldset>
+                    <legend>Enter your search criteria</legend>
+                    <div class="infldset">
+                        
+                        <input type="hidden" name="action" value="search" />
+                        <label class="conl">Keyword search<br /><input type="text" name="keywords" size="40" maxlength="100" /><br /></label>
+                        +must <img src="styles/osmforum/theme/img/bull.png" class="bull"> 
+                        -mustnot <img src="styles/osmforum/theme/img/bull.png" class="bull">
+                        or | or <img src="styles/osmforum/theme/img/bull.png" class="bull">
+                        wi*dcard
+
+                        <label for="terms1"><input type="radio" name="terms" id="terms1" value="all" checked="checked" /> {{ lang('SEARCH_ALL_TERMS') }}</label>
+                        <label for="terms2"><input type="radio" name="terms" id="terms2" value="any" /> {{ lang('SEARCH_ANY_TERMS') }}</label>
+                        
+                    </div>
+                </fieldset>
+            </div>
+            <div class="inform">
+                <fieldset>
+                    <legend>Author</legend>
+                    <div class="infldset">
+
+                        <label class="conl">Enter Author Name<br />
+                            <input id="author" type="text" name="author" size="25" maxlength="25" />
+                        </label>
+                    
+                    </div>
+                </fieldset>
+            </div>
+                        
+            <div class="inform">
+                <fieldset>
+                    <legend>Select where to search</legend>
+                    <div class="infldset">
+                        <div class="conl multiselect">Forum
+                            <br />
+                            <select name="fid[]" id="search_forum" multiple="multiple" title="{{ lang('SEARCH_FORUMS') }}" class="checklist">
+                                {{ S_FORUM_OPTIONS }}
+                            </select>
+                        </div>
+                        <label class="conl">Search in
+                            <br />
+                            <dd><label for="sf1"><input type="radio" name="sf" id="sf1" value="all" checked="checked" /> {{ lang('SEARCH_TITLE_MSG') }}</label></dd>
+                            <dd><label for="sf2"><input type="radio" name="sf" id="sf2" value="msgonly" /> {{ lang('SEARCH_MSG_ONLY') }}</label></dd>
+                            <dd><label for="sf3"><input type="radio" name="sf" id="sf3" value="titleonly" /> {{ lang('SEARCH_TITLE_ONLY') }}</label></dd>
+                            <dd><label for="sf4"><input type="radio" name="sf" id="sf4" value="firstpost" /> {{ lang('SEARCH_FIRST_POST') }}</label></dd>
+                            <dd><label for="sf5"><input type="checkbox" name="sc" id="search_child1" value="1" checked="checked" />Subforums</label></dd>
+                        </label>
+                        <p>If no forums are selected, all forums will be searched.</p>					
+                    </div>
+                </fieldset>
+            </div>
+            <div class="inform">
+                <fieldset>
+                    <legend>Select how to view search results</legend>
+                    <div class="infldset">
+                        <label class="conl">Sort by
+                            <br />
+                            {{ S_SELECT_SORT_KEY }}
+                            <br /></label>
+                        <label class="conl">Sort order
+                            <br /><select name="sd">
+                                <option value="d">Descending</option>
+                                <option value="a">Ascending</option>
+                            </select>
+                            <br /></label>
+                        <label class="conl">Show results as
+                            <br /><select name="sr">
+                                <option value="topics">Topics</option>
+                                <option value="posts">Posts</option>
+                            </select>
+                            <br /></label>
+                        <label class="conl">{{ lang('RESULT_DAYS') }}{{ lang('COLON') }}
+                            <br />{{ S_SELECT_SORT_DAYS }}
+                            <br /></label>
+                        <label class="conl">{{ lang('RETURN_FIRST') }}{{ lang('COLON') }}
+                            <br /><select name="ch" title="{{ lang('RETURN_FIRST') }}">{{ S_CHARACTER_OPTIONS }}</select> {{ lang('POST_CHARACTERS') }}
+                            <br /></label>
+                    </div>
+                </fieldset>
+            </div>
+            <p class="buttons">
+                {{ S_HIDDEN_FIELDS }}<input type="reset" value="{{ lang('RESET') }}" name="reset" class="button2" />&nbsp;
+		<input type="submit" name="submit" value="{{ lang('SEARCH') }}" class="button1" />
+            </p>
+        </form>
+    </div>
+</div>
+
+{% include 'osmforum_footer.html' %}

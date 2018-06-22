@@ -1,0 +1,60 @@
+{% for forumrow in loops.forumrow %}
+    
+    {% if forumrow.S_IS_CAT or forumrow.S_FIRST_ROW  %}
+        
+        {# End Category #}
+        {% if not forumrow.S_FIRST_ROW %}
+            
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            </div>
+            
+        {% endif %}
+        
+        <div id="idx1" class="blocktable">
+
+            <div class="box">
+                <div class="inbox">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="tcl" scope="col">{{ forumrow.FORUM_NAME }}</th>
+                                <th class="tc2" scope="col">Topics</th>
+                                <th class="tc3" scope="col">Posts</th>
+                                <th class="tcr" scope="col">Last post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+    {% else %}
+        
+        <tr class="rowodd">
+            <td class="tcl">
+                <div class="icon"><div class="nosize">1</div></div>
+                <div class="tclcon">
+                    <div>
+                        <h3><a href="{{ forumrow.U_VIEWFORUM }}">{{ forumrow.FORUM_NAME }}</a></h3>
+                        <div class="forumdesc">{{ forumrow.FORUM_DESC }}</div>
+                        
+                        {% if forumrow.MODERATORS %}
+                            <p class="modlist">(<em>Moderated by</em> {{ forumrow.MODERATORS }})</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+            <td class="tc2">{{ forumrow.TOPICS }}</td>
+            <td class="tc3">{{ forumrow.POSTS }}</td>
+            <td class="tcr"><a href="{{ forumrow.U_LAST_POST }}">{{ forumrow.LAST_POST_TIME }}</a> <span class="byuser">by {{ forumrow.LAST_POSTER }}</span></td>
+        </tr>
+        
+    {% endif %}
+    
+{% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+</div>
+</div>

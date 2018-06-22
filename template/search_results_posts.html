@@ -1,0 +1,45 @@
+
+<div id="search-results" class="posts">
+    
+    {% for postrow in loops.searchresults %}
+
+        <div class="blockpost rowodd">
+            <h2>
+                <span>
+                    <span><a href="{{ postrow.U_VIEW_FORUM }}">{{ postrow.FORUM_TITLE }}</a></span> 
+                    <span>»&#160;<a href="{{ postrow.U_VIEW_TOPIC }}">{{ postrow.POST_SUBJECT }}</a></span> 
+                    <div class="date">{{ postrow.POST_DATE }}</div>
+                </span>
+            </h2>
+            <div class="box">
+                <div class="inbox">
+                    <div class="postbody">
+                        <div class="postleft">
+                            <dl>
+                                <dt><strong>{{ postrow.POST_AUTHOR }}</strong></dt>
+                            </dl>
+                        </div>
+                        <div class="postright">
+                            <div class="postmsg">
+                                {{ postrow.MESSAGE }}
+                            </div>
+                        </div>
+                        <div class="clearer"></div>
+                    </div>
+                </div>
+                <div class="inbox">
+                    <div class="postfoot clearb">
+                        <div class="postfootright">
+                            <ul>
+                                <li><span><a href="{{ postrow.U_VIEW_TOPIC }}">Go to topic</a></span></li>
+                                <li><span><a href="{{ postrow.U_VIEW_POST }}">Go to post</a></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    
+</div>

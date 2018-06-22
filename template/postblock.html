@@ -1,0 +1,56 @@
+
+<div id="p603287" class="blockpost roweven{% if postrow.S_FIRST_ROW %} firstpost blockpost1{% endif %}">
+    <h2>
+        <span>
+            <span class="conr">#{{ postrow.S_ROW_COUNT + 1 }}</span> 
+            <a href="viewtopic.php?pid=603287#p603287">{{ postrow.POST_DATE }}</a>
+        </span>
+    </h2>
+    <div class="box">
+        <div class="inbox">
+            <div class="postbody">
+                <div class="postleft">
+                    <dl>
+                        {# style attribute fixes the name bug #}
+                        <dt style="position:relative;top:-33px;height:1px;"><strong>{{ postrow.POST_AUTHOR }}</strong></dt>
+                        <dd class="usertitle"><strong>{{ postrow.RANK_TITLE }}</strong></dd>
+                        <dd><span>From: {{ postrow.POSTER_FROM }}</span></dd>
+                        <dd><span>Registered: {{ postrow.POSTER_JOINED }}</span></dd>
+                        <dd><span>Posts: {{ postrow.POSTER_POSTS }}</span></dd>
+                    </dl>
+                </div>
+                <div class="postright">
+                    <div class="postmsg">
+                        {{ postrow.MESSAGE }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="inbox">
+            <div class="postfoot clearb">
+                <div class="postfootleft">
+                    {% if postrow.S_ONLINE %}
+                        <p><strong>Online</strong></p>
+                    {% else %}
+                        <p><span>Offline</span></p>
+                    {% endif %}
+                </div>
+                <div class="postfootright">
+                    <ul>
+                        {% if postrow.U_REPORT %}
+                            <li class="postreport"><span><a href="{{ postrow.U_REPORT }}">Report</a></span></li>
+                        {% endif %}
+
+                        {% if postrow.U_EDIT %}
+                            <li class="postedit"><span><a href="{{ postrow.U_EDIT }}">Edit</a></span></li>
+                        {% endif %}
+
+                        {% if postrow.U_QUOTE and S_REGISTERED_USER %}
+                            <li class="postquote"><span><a href="{{ postrow.U_QUOTE }}">Quote</a></span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

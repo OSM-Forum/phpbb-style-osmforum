@@ -1,0 +1,38 @@
+{% include 'osmforum_header.html' %}
+
+<div class="blockform">
+    <h2><span>Login</span></h2>
+    <div class="box">
+        <form action="{{ S_LOGIN_ACTION }}" method="post" id="login" data-focus="{% if S_ADMIN_AUTH %}{{ PASSWORD_CREDENTIAL }}{% else %}{{ USERNAME_CREDENTIAL }}{% endif %}">
+            <div class="inform">
+                <fieldset>
+                    <legend>Enter your username and password below</legend>
+                    <div class="infldset">
+                        <label class="conl required"><strong>{{ lang('USERNAME') }} <span>(Required)</span></strong><br /><input type="text" name="{{ USERNAME_CREDENTIAL }}" id="{{ USERNAME_CREDENTIAL }}" value="{{ USERNAME }}" size="35" maxlength="50" tabindex="1" /><br /></label>
+                        <label class="conl required"><strong>{{ lang('PASSWORD') }} <span>(Required)</span></strong><br /><input type="password" id="{{ PASSWORD_CREDENTIAL }}" name="{{ PASSWORD_CREDENTIAL }}" size="35" tabindex="2" /><br /></label>
+
+                        <div class="rbox clearb">
+                            {% if S_DISPLAY_FULL_LOGIN %}
+                                <dl>
+                                    {% if S_AUTOLOGIN_ENABLED %}<dd><label for="autologin"><input type="checkbox" name="autologin" id="autologin" tabindex="4" /> {{ lang('LOG_ME_IN') }}</label></dd>{% endif %}
+                                    <dd><label for="viewonline"><input type="checkbox" name="viewonline" id="viewonline" tabindex="5" /> {{ lang('HIDE_ME') }}</label></dd>
+                                </dl>
+                            {% endif %}
+                        </div>
+
+                        <!--
+                        <p class="clearb">If you have not registered or have forgotten your password click on the appropriate link below.</p>
+                        <p class="actions"><span><a href="register.php" tabindex="5">Not registered yet?</a></span> <span><a href="login.php?action=forget" tabindex="6">Forgotten your password?</a></span></p>
+                        -->
+                    </div>
+                </fieldset>
+            </div>
+            {{ S_LOGIN_REDIRECT }}
+            {{ S_HIDDEN_FIELDS }}
+            
+            <p class="buttons"><input type="submit" name="login" tabindex="6" value="{{ lang('LOGIN') }}" class="button1" /></p>
+        </form>
+    </div>
+</div>
+
+{% include 'osmforum_footer.html' %}

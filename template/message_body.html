@@ -1,0 +1,26 @@
+{% extends 'simplepage.html' %}
+
+{% block header %}
+    {# <meta http-equiv="refresh" content="1;URL=XXX" /> #}
+{% endblock %}
+
+{% block body %}
+    <div id="punredirect" class="pun">
+    <div class="top-box"></div>
+    <div class="punwrap">
+
+    <div id="brdmain">
+    <div class="block">
+            <h2>{{ MESSAGE_TITLE }}</h2>
+            <div class="box">
+                    <div class="inbox">
+                            <p>{{ MESSAGE_TEXT }}</p>
+                            {% if SCRIPT_NAME == "search" and not S_BOARD_DISABLED and not S_NO_SEARCH and L_RETURN_TO_SEARCH_ADV %}
+                                <p><a href="{{ U_SEARCH }}" class="arrow-{{ S_CONTENT_FLOW_BEGIN }}">{{ lang('GO_TO_SEARCH_ADV') }}</a></p>
+                            {% endif %}
+                    </div>
+            </div>
+    </div>
+</div>
+{% endblock %}
+

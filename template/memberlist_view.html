@@ -1,0 +1,43 @@
+{% include 'osmforum_header.html' %}
+
+<div id="viewprofile" class="block">
+    <h2><span>Profile</span></h2>
+    <div class="box">
+        <div class="fakeform">
+            <div class="inform">
+                <fieldset>
+                    <legend>Personal</legend>
+                    <div class="infldset">
+                        <dl>
+                            <dt>Username</dt>
+                            <dd>{{ USERNAME }}</dd>
+                            <dt>Title</dt>
+                            <dd>{{ RANK_TITLE }}</dd>
+                            <dt>Email</dt>
+                            <dd><span class="email"><a href="https://www.openstreetmap.org/message/new/{{ USERNAME }}">Send OSM Message</a></span></dd>
+                        </dl>
+                        <div class="clearer"></div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="inform">
+                <fieldset>
+                    <legend>User activity</legend>
+                    <div class="infldset">
+                        <dl>
+                            <dt>Posts</dt>
+                            <dd>{{ POSTS }} - <a href="{{ U_SEARCH_USER }}">Show all posts</a></dd>
+                            <dt>Last post</dt>
+                            <dd>{{ LAST_ACTIVE }}</dd>
+                            <dt>Registered</dt>
+                            <dd>{{ JOINED }}</dd>
+                        </dl>
+                        <div class="clearer"></div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'osmforum_footer.html' %}
